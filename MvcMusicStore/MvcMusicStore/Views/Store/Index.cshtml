@@ -12,7 +12,14 @@
 @foreach (string sGenreName in Model.Genres)
 { 
 	<li>
-		@sGenreName
+		@Html.ActionLink(sGenreName, "Browse", new { genre = sGenreName }, null)
+
+		@if (ViewBag.Starred.Contains(sGenreName))
+		{
+		<img src="~/Content/Images/starred.png" alt="starred element" />
+		} 
 	</li>
 }
 </ul>
+<br />
+<h5><img src="~/Content/Images/starred.png" alt="starred element" />Starred genres 20% off!</h5>

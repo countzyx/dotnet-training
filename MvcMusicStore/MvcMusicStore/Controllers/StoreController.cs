@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using MvcMusicStore.Models;
 using MvcMusicStore.ViewModels;
 
 namespace MvcMusicStore.Controllers
@@ -20,23 +21,43 @@ namespace MvcMusicStore.Controllers
 				Genres = sGenres
 			};
 
+			ViewBag.Starred = new List<string>() { "Jazz", "Rock" };
+
 			return this.View(oViewModel);
 		}
 
 		// GET: /Store/Browse?genre=Disco
-		public string Browse(string genre)
+		public ActionResult Browse(string genre)
 		{
-			string sMessage = HttpUtility.HtmlEncode("Store.Browse, Genre = " + genre);
-			
-			return sMessage;
+			var oGenreModel = new Genre()
+			{
+				Name = genre
+			};
+
+			var oAlbums = new List<Album>()
+			{
+				new Album() {Title = genre + " Album 1"},
+				new Album() {Title = genre + " Album 2"}
+			};
+
+			var oViewModel = new StoreBrowseViewModel()
+			{
+				Genre = oGenreModel,
+				Albums = oAlbums
+			};
+
+			return this.View(oViewModel);
 		}
 
 		// GET: /Store/Details/5
-		public string Details(int id)
+		public ActionResult Details(int id)
 		{
-			string sMessage = "Store.Details, ID = " + id;
+			var oAlbum = new Album() 
+			{
+				Title = "Sample Album"
+			};
 
-			return sMessage;
+			return this.View(oAlbum);
 		}
 	}
 }
